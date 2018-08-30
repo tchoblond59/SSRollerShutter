@@ -12,7 +12,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Tchoblond59\SSRollerShutter\Models\SSRollerShutter;
 
-class SSRollerShutterEvent
+class SSRollerShutterEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

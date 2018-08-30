@@ -4,6 +4,7 @@ namespace Tchoblond59\SSRollerShutter\Listeners;
 
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Tchoblond59\SSRollerShutter\Events\SSRollerShutterEvent;
 use Tchoblond59\SSRollerShutter\Models\SSRollerShutter;
 use App\Events\MSMessageEvent;
 
@@ -32,6 +33,9 @@ class SSRollerShutterListener
         {
             \Log::useFiles(storage_path('/logs/ssrollershutter.log'), 'info');
             \Log::info('Roller Shutter message');
+            $event = new SSRollerShutterEvent($sensor);
+            event($event);
+            \Log::info('Throw event');
         }
     }
 }
