@@ -5,6 +5,7 @@ namespace Tchoblond59\SSRollerShutter\Models;
 use App\Mqtt\MqttSender;
 use App\Mqtt\MSMessage;
 use App\Sensor;
+use Illuminate\Support\Facades\Artisan;
 
 class SSRollerShutter extends Sensor
 {
@@ -80,5 +81,10 @@ class SSRollerShutter extends Sensor
         MqttSender::sendMessage($message);
         /*$event = new LaraLightEvent($this, $level, $config);
         event($event);*/
+    }
+
+    public function onEnable()
+    {
+        Artisan::call('db:seed', ['--class' => 'Tchoblond59\SSRollerShutter\Seeders\RollerShutterStateSeeder']);
     }
 }
