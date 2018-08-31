@@ -34,7 +34,7 @@ class SSRollerShutter extends Sensor
 
     public function getCss()
     {
-        return [];
+        return ['css/tchoblond59/ssrollershutter/ssrollershutter.css'];
     }
 
     public function getJs()

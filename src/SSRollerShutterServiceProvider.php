@@ -18,7 +18,7 @@ class SSRollerShutterServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/views', 'ssrollershutter');
         $this->publishes([
             __DIR__.'/assets/js' => public_path('/js/tchoblond59/ssrollershutter'),
-            //__DIR__.'/assets/css' => public_path('/css/tchoblond59/ssrollershutter'),
+            __DIR__.'/assets/css' => public_path('/css/tchoblond59/ssrollershutter'),
         ], 'larahome-package');
         $this->loadMigrationsFrom(__DIR__.'/migrations');
         Event::listen('App\Events\MSMessageEvent', '\Tchoblond59\SSRollerShutter\Listeners\SSRollerShutterListener');

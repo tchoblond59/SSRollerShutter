@@ -10,6 +10,8 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Tchoblond59\SSRollerShutter\Models\RollerShutterConfig;
+use Tchoblond59\SSRollerShutter\Models\RollerShutterState;
 use Tchoblond59\SSRollerShutter\Models\SSRollerShutter;
 
 class SSRollerShutterEvent implements ShouldBroadcast
@@ -17,14 +19,18 @@ class SSRollerShutterEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $roller_shutter;
+    public $config;
+    public $state;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(SSRollerShutter $roller_shutter)
+    public function __construct(SSRollerShutter $roller_shutter, RollerShutterConfig $config, RollerShutterState $state)
     {
         $this->roller_shutter = $roller_shutter;
+        $this->config = $config;
+        $this->state = $state;
     }
 
     /**

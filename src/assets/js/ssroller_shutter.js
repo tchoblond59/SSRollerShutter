@@ -3,6 +3,7 @@ $(function() {
     e.channel('chan-ssrollershutter')
         .listen('.Tchoblond59.SSRollerShutter.Events.SSRollerShutterEvent', function (e) {
             console.log('SSRollerShutterEvent', e);
+            $('.roller_shutter_'+e.roller_shutter.id+' h4').text(e.state.name)
         })
 
     $('.roller_shutter_widget button').click(function (e) {

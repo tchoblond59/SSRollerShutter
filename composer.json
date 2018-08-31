@@ -2,7 +2,7 @@
     "name": "tchoblond59/ssrollershutter",
     "description": "Plugins that control roller shutter for LaraHome",
     "type": "larahome plugin",
-    "license": "GNU GPL 3",
+    "license": "GPL3",
     "authors": [
         {
             "name": "Julien Lamandin",
