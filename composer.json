@@ -10,6 +10,11 @@
     ],
     "minimum-stability": "stable",
     "require": {},
+    "autoload": {
+        "psr-4": {
+            "Tchoblond59\\SSRollerShutter\\": "src"
+        }
+    },
     "extra": {
         "laravel": {
             "providers": [
