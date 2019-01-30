@@ -1,8 +1,8 @@
-<div class="panel panel-default roller_shutter_widget roller_shutter_{{$sensor->id}}">
-    <div class="panel-heading">
-        <h3 class="panel-title">{{$widget->name}} <a href="{{url('/SSRollerShutter/widget/'.$widget->id)}}"><i class="fa fa-cogs pull-right" aria-hidden="true"></i></a></h3>
+<div class="card card-default roller_shutter_widget roller_shutter_{{$sensor->id}}">
+    <div class="card-header">
+        <h5 class="card-title">{{$widget->name}} <a href="{{url('/SSRollerShutter/widget/'.$widget->id)}}"><i class="fa fa-cogs pull-right" aria-hidden="true"></i></a></h5>
     </div>
-    <div class="panel-body text-center" data-sensor-id="{{$sensor->id}}">
+    <div class="card-body text-center" data-sensor-id="{{$sensor->id}}">
         <h4>{{$config->state->name}}</h4>
         <img class="img-responsive" style="max-height: 100px; margin: 0 auto;" src="{{$config->state->image}}">
         <div class="text-center">
