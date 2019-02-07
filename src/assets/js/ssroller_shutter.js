@@ -1,7 +1,7 @@
 /****************SSRoller Shutter JS Plugin****************/
 $(function() {
     e.channel('chan-ssrollershutter')
-        .listen('.Tchoblond59.SSRollerShutter.Events.SSRollerShutterEvent', function (e) {
+        .listen('.Tchoblond59\\SSRollerShutter\\Events\\SSRollerShutterEvent', function (e) {
             console.log('SSRollerShutterEvent', e);
             $('.roller_shutter_'+e.roller_shutter.id+' h4').text(e.state.name)
         })
