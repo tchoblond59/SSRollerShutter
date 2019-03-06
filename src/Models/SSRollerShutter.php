@@ -83,6 +83,26 @@ class SSRollerShutter extends Sensor
         event($event);*/
     }
 
+    public function calibrate()
+    {
+        $message = new MSMessage($this->id);
+        $message->set($this->node_address, 2, 'V_STATUS',1);
+        $message->setMessage(1);
+        MqttSender::sendMessage($message);
+        /*$event = new LaraLightEvent($this, $level, $config);
+        event($event);*/
+    }
+
+    public function setValue($value)
+    {
+        $message = new MSMessage($this->id);
+        $message->set($this->node_address, $this->sensor_address, 'V_PERCENTAGE',1);
+        $message->setMessage($value);
+        MqttSender::sendMessage($message);
+        /*$event = new LaraLightEvent($this, $level, $config);
+        event($event);*/
+    }
+
     public function onEnable()
     {
         Artisan::call('db:seed', ['--class' => 'Tchoblond59\SSRollerShutter\Seeders\RollerShutterStateSeeder']);

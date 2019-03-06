@@ -32,7 +32,7 @@ class SSRollerShutterListener
         $sensor = SSRollerShutter::where('node_address', '=', $event->message->getNodeId())->where('classname', '=', '\Tchoblond59\SSRollerShutter\Models\SSRollerShutter')->first();
         if($sensor)
         {
-            \Log::useFiles(storage_path('/logs/ssrollershutter.log'), 'info');
+            //\Log::useFiles(storage_path('/logs/ssrollershutter.log'), 'info');
             \Log::info('Roller Shutter message type '.$event->message->getType());
             $state = RollerShutterState::where('message_type', $event->message->getType())->first();
             \Log::info('Roller Shutter message type '.$event->message->getType());
