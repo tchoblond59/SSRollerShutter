@@ -63,9 +63,27 @@ class SSRollerShutterController extends Controller
             ->where('type', '0')
             ->orderBy('created_at', 'desc')
             ->first();
+
+        if(!$last_current)
+        {
+            $current = '?';
+        }
+        else
+        {
+            $current = $last_current->value;
+        }
+
+        if(!$last_temp)
+        {
+            $temp = '?';
+        }
+        else
+        {
+            $temp = $last_temp->value;
+        }
         return view('ssrollershutter::config')->with([
-            'last_current' => $last_current->value,
-            'last_temp' => $last_temp->value,
+            'last_current' => $current,
+            'last_temp' => $temp,
             'sensor' => $sensor,
             'widget' => $widget,
         ]);
