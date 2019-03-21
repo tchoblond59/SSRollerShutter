@@ -24,29 +24,30 @@ class SSRollerShutterListener
     /**
      * Handle the event.
      *
-     * @param  MSMessageEvent  $event
+     * @param  MSMessageEvent $event
      * @return void
      */
     public function handle(MSMessageEvent $event)
     {
-        $sensor = SSRollerShutter::where('node_address', '=', $event->message->getNodeId())->where('classname', '=', '\Tchoblond59\SSRollerShutter\Models\SSRollerShutter')->first();
+        $sensor = SSRollerShutter::where('node_address', '=', $event->message->getNodeId())
+            ->where('classname', '=', '\Tchoblond59\SSRollerShutter\Models\SSRollerShutter')->first();
         if($sensor)
         {
-            //\Log::useFiles(storage_path('/logs/ssrollershutter.log'), 'info');
             \Log::info('Roller Shutter message type '.$event->message->getType());
             $state = RollerShutterState::where('message_type', $event->message->getType())->first();
-            \Log::info('Roller Shutter message type '.$event->message->getType());
-            if($state)
+            $config = $sensor->config;
+            if($event->message->getType() == 3)//Send percent
             {
-                $config = $sensor->config;
-                //$config->state->save($state);
-                $config->roller_shutter_state_id = $state->id;
-                $config->save();
-
-                $event = new SSRollerShutterEvent($sensor, $sensor->config, $sensor->config->state);
-                event($event);
-                \Log::info('Throw event');
+                $percent = $event->message->getMessage();
+                $config->percent = $percent;
             }
+            else if($state)
+            {
+                $config->roller_shutter_state_id = $state->id;
+            }
+            $config->save();
+            $event = new SSRollerShutterEvent($sensor, $sensor->config, $sensor->config->state);
+            event($event);
         }
     }
 }

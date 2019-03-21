@@ -23,14 +23,15 @@
                     <input type="hidden" name="sensor" value="{{$sensor->id}}">
                     <input type="hidden" name="widget" value="{{$widget->id}}">
                 </form>
-                <button type="button" class="btn btn-sm btn-danger" data-form-type="form_shutter_close"><i
-                            class="fa fa-arrow-down"></i> Fermer
+                <button type="button" class="btn btn-sm btn-success" data-form-type="form_shutter_open">Ouvrir <i
+                            class="fa fa-arrow-up"></i>
                 </button>
                 <button type="button" class="btn btn-sm btn-warning" data-form-type="form_shutter_stop"><i
                             class="fa fa-pause"></i> Stop
                 </button>
-                <button type="button" class="btn btn-sm btn-success" data-form-type="form_shutter_open">Ouvrir <i
-                            class="fa fa-arrow-up"></i></button>
+                <button type="button" class="btn btn-sm btn-danger" data-form-type="form_shutter_close"><i
+                            class="fa fa-arrow-down"></i> Fermer
+                </button>
             </div>
         </div>
         <hr>
@@ -40,12 +41,12 @@
                 <input
                         type="text"
                         name="percent"
+                        data-sensor-id="{{$sensor->id}}"
                         data-provide="slider"
                         data-slider-min="0"
                         data-slider-max="100"
-                        data-slider-step="10"
-                        data-slider-value="50"
-                        data-slider-tooltip="hide"
+                        data-slider-step="1"
+                        data-slider-value="{{$config->percent}}"
                 >
             </form>
         </div>

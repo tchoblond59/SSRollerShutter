@@ -59,8 +59,6 @@ class SSRollerShutter extends Sensor
         $message->set($this->node_address, $this->sensor_address, 'V_UP',1);
         $message->setMessage(1);
         MqttSender::sendMessage($message);
-        /*$event = new LaraLightEvent($this, $level, $config);
-        event($event);*/
     }
 
     public function close()
@@ -69,8 +67,6 @@ class SSRollerShutter extends Sensor
         $message->set($this->node_address, $this->sensor_address, 'V_DOWN',1);
         $message->setMessage(1);
         MqttSender::sendMessage($message);
-        /*$event = new LaraLightEvent($this, $level, $config);
-        event($event);*/
     }
 
     public function stop()
@@ -79,8 +75,6 @@ class SSRollerShutter extends Sensor
         $message->set($this->node_address, $this->sensor_address, 'V_STOP',1);
         $message->setMessage(1);
         MqttSender::sendMessage($message);
-        /*$event = new LaraLightEvent($this, $level, $config);
-        event($event);*/
     }
 
     public function calibrate()
@@ -89,8 +83,14 @@ class SSRollerShutter extends Sensor
         $message->set($this->node_address, 2, 'V_STATUS',1);
         $message->setMessage(1);
         MqttSender::sendMessage($message);
-        /*$event = new LaraLightEvent($this, $level, $config);
-        event($event);*/
+    }
+
+    public function endStop()
+    {
+        $message = new MSMessage($this->id);
+        $message->set($this->node_address, 4, 'V_STATUS',1);
+        $message->setMessage(1);
+        MqttSender::sendMessage($message);
     }
 
     public function setValue($value)

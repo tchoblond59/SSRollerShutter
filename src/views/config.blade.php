@@ -45,7 +45,9 @@
             </div>
             <div class="col-auto">
                 <a class="btn btn-primary btn-lg" href="{{url('/SSRollerShutter/calibrate/'.$sensor->id)}}">Lancer le
-                    calibrage</a>
+                    calibrage</a><br>
+                <a class="btn btn-primary btn-lg mt-2" href="{{url('/SSRollerShutter/endstop/'.$sensor->id)}}">Fin de
+                    course</a>
             </div>
             <div class="col">
                 <div class="card">

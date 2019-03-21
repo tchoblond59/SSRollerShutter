@@ -108,6 +108,14 @@ class SSRollerShutterController extends Controller
         return json_encode('ok');
     }
 
+    public function endStop($id)
+    {
+        $sensor = Sensor::find($id);
+        $roller_shutter = SensorFactory::create($sensor->classname, $sensor->id);
+        $roller_shutter->endStop();
+        return redirect()->back();
+    }
+
     public function addCommande($id, Request $request)
     {
         $this->validate($request, [
