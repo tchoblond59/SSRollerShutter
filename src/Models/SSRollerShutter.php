@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Artisan;
 
 class SSRollerShutter extends Sensor
 {
+    protected $appends = ['title'];
+
     public function getWidget(\App\Widget $widget)
     {
-        $sensor  = $widget->sensor;
-        $status = $this->status;
         $config = $this->config;
         if(!$config)//Create first time
         {
@@ -23,7 +23,7 @@ class SSRollerShutter extends Sensor
         }
         return view('ssrollershutter::widget')->with([
             'widget' => $widget,
-            'sensor' => $sensor,
+            'sensor' => $this,
             'config' => $config,
         ]);
     }
@@ -106,5 +106,21 @@ class SSRollerShutter extends Sensor
     public function onEnable()
     {
         Artisan::call('db:seed', ['--class' => 'Tchoblond59\SSRollerShutter\Seeders\RollerShutterStateSeeder']);
+    }
+
+    public function getTitleAttribute()
+    {
+        if($this->config->percent == 0)
+        {
+            return 'Volet ouvert';
+        }
+        elseif($this->config->percent == 100)
+        {
+            return 'Volet fermé';
+        }
+        else
+        {
+            return 'Volet fermé à '.$this->config->percent.'%';
+        }
     }
 }

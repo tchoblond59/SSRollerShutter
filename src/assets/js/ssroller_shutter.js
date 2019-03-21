@@ -4,7 +4,7 @@ $(function() {
         .listen('.Tchoblond59\\SSRollerShutter\\Events\\SSRollerShutterEvent', function (e) {
             console.log('SSRollerShutterEvent', e);
             $('input[data-sensor-id='+e.config.sensor_id+']').slider('setValue', e.config.percent);
-            $('.roller_shutter_'+e.roller_shutter.id+' h4').text(e.state.name)
+            $('.roller_shutter_'+e.roller_shutter.id+' h4').text(e.roller_shutter.title);
         })
 
     $('.roller_shutter_widget button').click(function (e) {

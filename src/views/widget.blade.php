@@ -4,7 +4,7 @@
                         class="fa fa-cogs pull-right" aria-hidden="true"></i></a></h5>
     </div>
     <div class="card-body text-center" data-sensor-id="{{$sensor->id}}">
-        <h4>{{$config->state->name}}</h4>
+        <h4>{{$sensor->title}}</h4>
         <img class="img-responsive" style="max-height: 100px; margin: 0 auto;" src="{{$config->state->image}}">
         <div class="text-center">
             <div class="btn-group" role="group" aria-label="...">
