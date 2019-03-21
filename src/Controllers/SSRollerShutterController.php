@@ -2,6 +2,7 @@
 
 namespace Tchoblond59\SSRollerShutter\Controllers;
 
+use App\Command;
 use App\Http\Controllers\Controller;
 use App\Message;
 use App\MSCommand;
@@ -131,6 +132,13 @@ class SSRollerShutterController extends Controller
         $commande->type = $request->commande;//29 V_UP | 30 V_DOWN
         $commande->payload = 0;
         $commande->save();
+
+        $command = new Command();
+        $command->name = $commande->name;
+        $command->commandable_id = $commande->id;
+        $command->commandable_type = 'App\MSCommand';
+        $command->save();
+
         return redirect()->back();
     }
 }
