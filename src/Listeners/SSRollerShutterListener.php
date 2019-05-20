@@ -33,7 +33,7 @@ class SSRollerShutterListener
             ->where('classname', '=', '\Tchoblond59\SSRollerShutter\Models\SSRollerShutter')->first();
         if($sensor)
         {
-            \Log::info('Roller Shutter message type '.$event->message->getType());
+            //\Log::info('Roller Shutter message type '.$event->message->getType());
             $state = RollerShutterState::where('message_type', $event->message->getType())->first();
             $config = $sensor->config;
             if($event->message->getType() == 3)//Send percent

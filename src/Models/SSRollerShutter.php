@@ -2,6 +2,7 @@
 
 namespace Tchoblond59\SSRollerShutter\Models;
 
+use App\Message;
 use App\Mqtt\MqttSender;
 use App\Mqtt\MSMessage;
 use App\Sensor;
@@ -56,7 +57,7 @@ class SSRollerShutter extends Sensor
     public function open()
     {
         $message = new MSMessage($this->id);
-        $message->set($this->node_address, $this->sensor_address, 'V_UP',1);
+        $message->set($this->node_address, $this->sensor_address, 'V_UP', 0);
         $message->setMessage(1);
         MqttSender::sendMessage($message);
     }
@@ -64,7 +65,7 @@ class SSRollerShutter extends Sensor
     public function close()
     {
         $message = new MSMessage($this->id);
-        $message->set($this->node_address, $this->sensor_address, 'V_DOWN',1);
+        $message->set($this->node_address, $this->sensor_address, 'V_DOWN', 0);
         $message->setMessage(1);
         MqttSender::sendMessage($message);
     }
@@ -72,7 +73,7 @@ class SSRollerShutter extends Sensor
     public function stop()
     {
         $message = new MSMessage($this->id);
-        $message->set($this->node_address, $this->sensor_address, 'V_STOP',1);
+        $message->set($this->node_address, $this->sensor_address, 'V_STOP', 0);
         $message->setMessage(1);
         MqttSender::sendMessage($message);
     }
@@ -96,7 +97,7 @@ class SSRollerShutter extends Sensor
     public function setValue($value)
     {
         $message = new MSMessage($this->id);
-        $message->set($this->node_address, $this->sensor_address, 'V_PERCENTAGE',1);
+        $message->set($this->node_address, $this->sensor_address, 'V_PERCENTAGE', 0);
         $message->setMessage($value);
         MqttSender::sendMessage($message);
         /*$event = new LaraLightEvent($this, $level, $config);
@@ -122,5 +123,24 @@ class SSRollerShutter extends Sensor
         {
             return 'Volet fermé à '.$this->config->percent.'%';
         }
+    }
+
+    public function getHistory()
+    {
+        $history = Message::where('node_address', $this->node_address)
+            ->where('sensor_address', $this->sensor_address)
+            ->where('type', 3)
+            ->whereIn('value', [0,100])
+            ->select('created_at', 'value')
+            ->orderBy('created_at', 'desc')
+            ->take(10)->get();
+        $history = $history->reverse();
+        $result[] = ['Date', 'Valeur'];
+        foreach ($history as $key => $value)
+        {
+            $result[] = [$value->created_at->format('d/m/Y H:i'), (int)$value->value];
+
+        }
+        return json_encode($result);
     }
 }

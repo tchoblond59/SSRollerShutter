@@ -1,16 +1,41 @@
 @extends('layouts.app')
 @section('content')
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        var history_roller_shutter = {!! $sensor->getHistory() !!};
+        function drawChart() {
+            // Define the chart to be drawn.
+            console.log(history_roller_shutter);
+            var data = google.visualization.arrayToDataTable(
+                history_roller_shutter
+            );
+
+
+            var options = {
+                title: 'Historique volet',
+                vAxis: {title: 'Position'},
+                isStacked: true
+            };
+
+            // Instantiate and draw the chart.
+            var chart = new google.visualization.SteppedAreaChart(document.getElementById('history_roller_shutter'));
+            chart.draw(data, null);
+        }
+    </script>
+    <script type="text/javascript" src="{{asset('js/tchoblond59/ssrollershutter/ssroller_shutter.js')}}"></script>
+
+
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1>SSRollerShutter configuration
+                <h3>SSRollerShutter
                     <small>{{$widget->name}}</small>
-                </h1>
+                </h3>
                 <hr>
             </div>
         </div>
         <div class="row d-flex justify-content-around">
-            <div class="col-3">
+            <div class="col">
                 <div class="card-container">
                     <div class="card-icon card-power"><i class="fa fa-4x fa-bolt text-center"></i></div>
                     <div class="card-title text-center">
@@ -24,7 +49,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col">
                 <div class="card-container">
                     <div class="card-icon card-blue"><i class="fa fa-4x fa-thermometer-half text-center"></i></div>
                     <div class="card-title text-center">
@@ -43,11 +68,14 @@
             <div class="col-12">
                 <hr>
             </div>
-            <div class="col-auto">
-                <a class="btn btn-primary btn-lg" href="{{url('/SSRollerShutter/calibrate/'.$sensor->id)}}">Lancer le
-                    calibrage</a><br>
-                <a class="btn btn-primary btn-lg mt-2" href="{{url('/SSRollerShutter/endstop/'.$sensor->id)}}">Fin de
-                    course</a>
+            <div class="col-auto" style="margin: 0 auto;">
+                <div class="btn-group-vertical">
+                    <a class="btn btn-secondary btn-lg" href="{{url('/SSRollerShutter/calibrate/'.$sensor->id)}}">Lancer le
+                        calibrage</a><br>
+                    <a class="btn btn-secondary btn-lg" href="{{url('/SSRollerShutter/endstop/'.$sensor->id)}}">Fin de
+                        course</a>
+                    <a class="btn btn-secondary btn-lg" href="{{url('/widget/edit/'.$widget->id)}}">Renommer widget</a>
+                </div>
             </div>
             <div class="col">
                 <div class="card">
@@ -75,6 +103,11 @@
                         </form>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div id="history_roller_shutter"/>
             </div>
         </div>
     </div>

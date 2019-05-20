@@ -54,6 +54,7 @@ class SSRollerShutterController extends Controller
     {
         $widget = Widget::findOrFail($id);
         $sensor = $widget->sensor;
+        $sensor = SSRollerShutter::find($sensor->id);
         $last_current = Message::where('node_address', $sensor->node_address)
             ->where('sensor_address', '6')
             ->where('type', '17')
