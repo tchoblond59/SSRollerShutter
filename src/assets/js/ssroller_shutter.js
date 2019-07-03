@@ -24,6 +24,9 @@ $(function() {
         e.preventDefault();
     });
 
-    google.charts.load('current', {packages: ['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
+    if($('#history_roller_shutter').length)
+    {
+        google.charts.load('current', {packages: ['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+    }
 })
